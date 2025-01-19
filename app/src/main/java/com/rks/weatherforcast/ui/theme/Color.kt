@@ -14,5 +14,7 @@ object WeatherAppLightColors {
     val SkyBlue = Color(0xFF1976D2)
     val lightSkyBlueColor = Color(0xFF61bef2)
     val CardBlueColor = Color(0xFFE3F2FD)
-    val TextPrimary = Color(0xFFFFFFFF)
+    val TextSecondary = Color(0xFFFFFFFF)
+    val TextPrimary = Color(0xFF000000)
+    val CircleContainer = Color(0xFFFF9800)
 }

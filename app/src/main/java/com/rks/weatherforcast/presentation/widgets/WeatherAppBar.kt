@@ -3,14 +3,11 @@ package com.rks.weatherforcast.presentation.widgets
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -19,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -43,12 +39,12 @@ fun WeatherAppBar(
 
     TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
         containerColor = WeatherAppLightColors.lightSkyBlueColor,
-        titleContentColor = WeatherAppLightColors.TextPrimary
+        titleContentColor = WeatherAppLightColors.TextSecondary
     ),
         title = {
             Text(
                 text = title,
-                color = WeatherAppLightColors.TextPrimary,
+                color = WeatherAppLightColors.TextSecondary,
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp
@@ -59,7 +55,7 @@ fun WeatherAppBar(
             if (icon!=null) {
                Icon(
                    imageVector = icon, contentDescription = "",
-                   tint = WeatherAppLightColors.TextPrimary,
+                   tint = WeatherAppLightColors.TextSecondary,
                    modifier = Modifier.clickable {
                        onButtonClicked.invoke()
                    }
