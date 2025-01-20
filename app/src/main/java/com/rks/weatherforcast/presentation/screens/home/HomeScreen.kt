@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -31,7 +30,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -40,9 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil3.compose.AsyncImage
 import coil3.compose.rememberAsyncImagePainter
-import coil3.request.ImageRequest
 import com.rks.weatherforcast.R
 import com.rks.weatherforcast.data.model.Weather
 import com.rks.weatherforcast.data.wrapper.DataOrException
@@ -50,6 +46,7 @@ import com.rks.weatherforcast.presentation.formatDate
 import com.rks.weatherforcast.presentation.formatDecimals
 import com.rks.weatherforcast.presentation.formatTime
 import com.rks.weatherforcast.presentation.widgets.WeatherAppBar
+import com.rks.weatherforcast.presentation.widgets.WeatherImage
 import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
 
 @Composable
@@ -149,14 +146,18 @@ fun MainContent(
 
             TopCircle(modifier, weather)
             Spacer(modifier = modifier.padding(top = 16.dp))
-            HumidityRow(modifier, humidity = "${data.humidity}",
+            HumidityRow(
+                modifier, humidity = "${data.humidity}",
                 psi = "${data.pressure} psi",
-                windSpeed = "${data.speed} mhp")
+                windSpeed = "${data.speed} mhp"
+            )
             Spacer(modifier = modifier.padding(top = 10.dp))
             Divider()
             Spacer(modifier = modifier.padding(top = 10.dp))
-            SunRiseRow(modifier, sunRise = "${formatTime(data.sunrise)}",
-                sunSet = "${formatTime(data.sunset)}")
+            SunRiseRow(
+                modifier, sunRise = "${formatTime(data.sunrise)}",
+                sunSet = "${formatTime(data.sunset)}"
+            )
 
             Text(
                 text = "This Week",
@@ -172,12 +173,12 @@ fun MainContent(
             LazyVerticalGrid(
                 modifier = modifier
                     .fillMaxWidth(),
-                columns = GridCells.Fixed(2),
+                columns = GridCells.Fixed(1),
             ) {
 
-                items(weather.list){ item ->
+                items(weather.list) { item ->
 
-                    Text(text = "${item.dt}")
+                    WeatherItem(item = item)
 
                 }
 
@@ -204,7 +205,7 @@ fun TopCircle(modifier: Modifier = Modifier, weather: Weather) {
             verticalArrangement = Arrangement.Center
         ) {
 
-            WeatherStateImage(imageUrl)
+            WeatherImage(imageUrl = imageUrl, modifier = modifier)
 
             Spacer(
                 modifier = modifier
@@ -212,7 +213,7 @@ fun TopCircle(modifier: Modifier = Modifier, weather: Weather) {
             )
 
             Text(
-                text = formatDecimals(weather.list[0].temp.day)+"",
+                text = formatDecimals(weather.list[0].temp.day) + "",
                 style = TextStyle(
                     fontSize = 48.sp,
                     fontWeight = FontWeight.Bold,
@@ -294,15 +295,4 @@ fun WeatherDetailItem(modifier: Modifier, humidity: String, imageResource: Int) 
             color = WeatherAppLightColors.TextPrimary
         )
     }
-}
-
-@Composable
-fun WeatherStateImage(imageUrl: String, modifier: Modifier = Modifier) {
-    Log.i("AsyncImage", imageUrl)
-    Image(
-        painter = rememberAsyncImagePainter(imageUrl),
-        contentDescription = "Weather Icon",
-        modifier = modifier
-            .size(80.dp)
-    )
 }
