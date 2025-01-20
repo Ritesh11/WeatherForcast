@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rks.weatherforcast.data.model.WeatherItem
 import com.rks.weatherforcast.presentation.widgets.CustomText
+import com.rks.weatherforcast.presentation.widgets.WeatherImage
 import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
 
 
@@ -62,7 +63,7 @@ fun WeatherItem(
                         .fillMaxWidth()
                         .padding(16.dp), horizontalArrangement = Arrangement.Start
                 ) {
-                    WeatherStateImage(
+                    WeatherImage(
                         "",
                         modifier
                     )
