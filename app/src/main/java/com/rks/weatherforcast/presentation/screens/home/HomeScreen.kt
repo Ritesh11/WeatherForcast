@@ -2,7 +2,6 @@ package com.rks.weatherforcast.presentation.screens.home
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,7 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil3.compose.rememberAsyncImagePainter
 import com.rks.weatherforcast.R
 import com.rks.weatherforcast.data.model.Weather
 import com.rks.weatherforcast.data.wrapper.DataOrException

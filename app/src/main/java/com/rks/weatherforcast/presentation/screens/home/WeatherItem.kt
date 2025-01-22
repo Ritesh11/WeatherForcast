@@ -38,7 +38,7 @@ fun WeatherItem(
     val imageUrl = "https://openweathermap.org/img/wn/${item.weather[0].icon}.png"
     Card(
         modifier = modifier
-            .padding(16.dp)
+            .padding(5.dp)
             .height(205.dp)
             .width(150.dp),
         shape = RoundedCornerShape(2.dp),
