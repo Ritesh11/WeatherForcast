@@ -173,7 +173,7 @@ fun MainContent(
             LazyVerticalGrid(
                 modifier = modifier
                     .fillMaxWidth(),
-                columns = GridCells.Fixed(1),
+                columns = GridCells.Fixed(2),
             ) {
 
                 items(weather.list) { item ->

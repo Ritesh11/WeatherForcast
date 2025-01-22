@@ -10,6 +10,14 @@ fun formatDate(timeStamp: Int): String{
 
     return sdf.format(date)
 }
+fun formatDay(timeStamp: Int): String{
+    val sdf = SimpleDateFormat("EEE")
+    val date = Date(timeStamp.toLong() * 1000)
+
+    return sdf.format(date)
+}
+
+
 fun formatTime(timeStamp: Int): String{
     val sdf = SimpleDateFormat("hh:mm:aa")
     val date = Date(timeStamp.toLong() * 1000)
