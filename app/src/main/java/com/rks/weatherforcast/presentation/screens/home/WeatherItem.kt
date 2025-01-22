@@ -67,6 +67,7 @@ fun WeatherItem(
                 ) {
                     WeatherImage(
                         imageUrl,
+                        60.dp,
                         modifier
                     )
 

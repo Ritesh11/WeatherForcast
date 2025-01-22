@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -43,6 +44,8 @@ import com.rks.weatherforcast.data.wrapper.DataOrException
 import com.rks.weatherforcast.presentation.formatDate
 import com.rks.weatherforcast.presentation.formatDecimals
 import com.rks.weatherforcast.presentation.formatTime
+import com.rks.weatherforcast.presentation.nav.AppNavHost
+import com.rks.weatherforcast.presentation.nav.AppNavigation
 import com.rks.weatherforcast.presentation.widgets.WeatherAppBar
 import com.rks.weatherforcast.presentation.widgets.WeatherImage
 import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
@@ -75,7 +78,7 @@ fun HomeScreen(
                 weather = weatherData.data!!,
                 modifier = modifier,
                 navController = navController
-            );
+            )
         }
     }
 }
@@ -92,7 +95,10 @@ fun ShowWeatherData(
         topBar = {
             WeatherAppBar(
                 title = weather.city.name + ", ${weather.city.country}",
-                navController = navController
+                navController = navController,
+                onAddActionClicked = {
+                    navController.navigate(AppNavigation.SearchScreen.name)
+                }
             ) {
                 Log.i("Weather App", "Button Clicked")
             }
@@ -194,7 +200,8 @@ fun TopCircle(modifier: Modifier = Modifier, weather: Weather) {
         modifier = modifier
             .size(200.dp),
         shape = CircleShape,
-        color = WeatherAppLightColors.CircleContainer
+        color = WeatherAppLightColors.CircleContainer,
+        shadowElevation = 5.dp
     ) {
 
         Column(
@@ -203,29 +210,19 @@ fun TopCircle(modifier: Modifier = Modifier, weather: Weather) {
             verticalArrangement = Arrangement.Center
         ) {
 
-            WeatherImage(imageUrl = imageUrl, modifier = modifier)
-
-            Spacer(
-                modifier = modifier
-                    .size(10.dp)
-            )
+            WeatherImage(imageUrl = imageUrl, 80.dp, modifier = modifier)
 
             Text(
                 text = formatDecimals(weather.list[0].temp.day) + "",
-                style = TextStyle(
-                    fontSize = 48.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = WeatherAppLightColors.TextPrimary
-                )
+                style = MaterialTheme.typography.headlineLarge,
+                color = WeatherAppLightColors.TextPrimary,
+                fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = weather.list[0].weather[0].description,
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    fontStyle = FontStyle.Italic,
-                    color = WeatherAppLightColors.TextPrimary
-                )
+                style = MaterialTheme.typography.bodyLarge,
+                color = WeatherAppLightColors.TextPrimary
             )
 
         }

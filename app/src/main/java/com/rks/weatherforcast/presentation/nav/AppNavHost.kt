@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rks.weatherforcast.presentation.screens.splash.SplashScreen
 import com.rks.weatherforcast.presentation.screens.home.HomeScreen
 import com.rks.weatherforcast.presentation.screens.home.HomeViewModel
+import com.rks.weatherforcast.presentation.screens.search.SearchScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
@@ -23,6 +24,10 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
         composable(AppNavigation.SplashScreen.name) {
             SplashScreen(navController = _NavController)
+        }
+
+        composable(AppNavigation.SearchScreen.name) {
+            SearchScreen(navController = _NavController)
         }
 
         composable(AppNavigation.HomeScreen.name) {
