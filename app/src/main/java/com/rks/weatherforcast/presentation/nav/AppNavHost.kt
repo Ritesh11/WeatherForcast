@@ -4,9 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.rks.weatherforcast.presentation.screens.splash.SplashScreen
 import com.rks.weatherforcast.presentation.screens.home.HomeScreen
 import com.rks.weatherforcast.presentation.screens.home.HomeViewModel
@@ -22,6 +24,8 @@ fun AppNavHost(modifier: Modifier = Modifier) {
         startDestination = AppNavigation.SplashScreen.name
     ) {
 
+        val home = AppNavigation.HomeScreen.name
+
         composable(AppNavigation.SplashScreen.name) {
             SplashScreen(navController = _NavController)
         }
@@ -30,9 +34,20 @@ fun AppNavHost(modifier: Modifier = Modifier) {
             SearchScreen(navController = _NavController)
         }
 
-        composable(AppNavigation.HomeScreen.name) {
-            val homeViewModel = hiltViewModel<HomeViewModel>()
-            HomeScreen(navController = _NavController, homeViewModel = homeViewModel)
+        composable(
+            "$home/{city}",
+            arguments = listOf(
+                navArgument(name = "city") {
+                    type = NavType.StringType
+                })
+        ) { navBack ->
+            navBack.arguments?.getString("city").let { city ->
+
+                val homeViewModel = hiltViewModel<HomeViewModel>()
+                HomeScreen(navController = _NavController,
+                    homeViewModel = homeViewModel,
+                    city)
+            }
         }
     }
 }

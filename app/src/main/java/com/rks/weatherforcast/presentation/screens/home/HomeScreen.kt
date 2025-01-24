@@ -54,15 +54,15 @@ import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
 fun HomeScreen(
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    city: String
 ) {
 
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(loading = true)
     ) {
-        value = homeViewModel.getWeatherData(city = "Bengaluru")
+        value = homeViewModel.getWeatherData(city = city)
     }.value
-
 
 
     Column(
