@@ -32,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,24 +43,24 @@ import com.rks.weatherforcast.data.wrapper.DataOrException
 import com.rks.weatherforcast.presentation.formatDate
 import com.rks.weatherforcast.presentation.formatDecimals
 import com.rks.weatherforcast.presentation.formatTime
-import com.rks.weatherforcast.presentation.nav.AppNavHost
-import com.rks.weatherforcast.presentation.nav.AppNavigation
+import com.rks.weatherforcast.presentation.nav.WeatherScreens
 import com.rks.weatherforcast.presentation.widgets.WeatherAppBar
 import com.rks.weatherforcast.presentation.widgets.WeatherImage
 import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
 
 @Composable
-fun HomeScreen(
+fun HomeScreen(modifier: Modifier = Modifier,
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier,
-    city: String
+    city: String?
 ) {
 
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(loading = true)
     ) {
-        value = homeViewModel.getWeatherData(city = city)
+
+        value = homeViewModel.getWeatherData(city = city!!)
+
     }.value
 
 
@@ -97,7 +96,7 @@ fun ShowWeatherData(
                 title = weather.city.name + ", ${weather.city.country}",
                 navController = navController,
                 onAddActionClicked = {
-                    navController.navigate(AppNavigation.SearchScreen.name)
+                    navController.navigate(WeatherScreens.SearchScreen.name)
                 }
             ) {
                 Log.i("Weather App", "Button Clicked")

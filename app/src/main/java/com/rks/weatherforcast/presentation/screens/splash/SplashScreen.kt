@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.rks.weatherforcast.R
-import com.rks.weatherforcast.presentation.nav.AppNavigation
+import com.rks.weatherforcast.presentation.nav.WeatherScreens
 import kotlinx.coroutines.delay
 
 @Composable
@@ -39,7 +39,11 @@ fun SplashScreen(navController: NavController, modifier: Modifier = Modifier) {
             ))
 
         delay(1000L)
-        navController.navigate(AppNavigation.HomeScreen.name)
+        navController.navigate(WeatherScreens.HomeScreen.name+"/Bengaluru"){
+            popUpTo(WeatherScreens.SplashScreen.name){
+                inclusive = true
+            }
+        }
     })
 
     Box(

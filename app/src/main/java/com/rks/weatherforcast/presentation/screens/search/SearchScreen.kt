@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.rks.weatherforcast.presentation.nav.WeatherScreens
 import com.rks.weatherforcast.presentation.widgets.WeatherAppBar
 import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
 
@@ -50,12 +51,13 @@ fun SearchScreen(navController: NavController) {
             }
         }
     ) { padding ->
-        Content(padding)
+        Content(padding, navController)
     }
 }
 
 @Composable
-fun Content(padding: PaddingValues) {
+fun Content(padding: PaddingValues,
+            navController: NavController) {
     Column(modifier = Modifier
         .padding(top = padding.calculateTopPadding())
         .background(WeatherAppLightColors.TextSecondary)
@@ -66,8 +68,10 @@ fun Content(padding: PaddingValues) {
         SearchBar(modifier = Modifier
             .fillMaxWidth()
             .padding(padding)
-            .align(Alignment.CenterHorizontally)){
-            Log.d("SearchBar", "Content: $it")
+            .align(Alignment.CenterHorizontally)){ city ->
+            navController.navigate(WeatherScreens.HomeScreen.name+"/$city"){
+                navController.popBackStack()
+            }
         }
     }
 }
