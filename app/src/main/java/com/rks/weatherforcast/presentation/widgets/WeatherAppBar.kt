@@ -26,12 +26,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.rks.weatherforcast.R
+import com.rks.weatherforcast.presentation.nav.WeatherScreens
 import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,7 +70,7 @@ fun WeatherAppBar(
                 color = WeatherAppLightColors.TextSecondary,
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp
+                    fontSize = 18.sp
                 )
             )
         },
@@ -116,7 +119,9 @@ fun ShowSettingDropDownValue(
     showDialog: MutableState<Boolean>,
     navController: NavController? = null
 ) {
-
+    val about = stringResource(R.string.option_about)
+    val favorites = stringResource(R.string.option_favorites)
+    val settings = stringResource(R.string.option_settings)
 
     val item = listOf("About", "Favorites", "Settings")
 
@@ -130,7 +135,8 @@ fun ShowSettingDropDownValue(
         DropdownMenu(
             expanded = showDialog.value,
             onDismissRequest = {
-                showDialog.value = false},
+                showDialog.value = false
+            },
             modifier = Modifier
                 .width(140.dp)
                 .background(WeatherAppLightColors.TextSecondary)
@@ -139,8 +145,21 @@ fun ShowSettingDropDownValue(
             item.forEachIndexed { index, text ->
                 DropdownMenuItem(text = {
                     WeatherDropDownItems(text)
-                },onClick = {
+                }, onClick = {
                     showDialog.value = false
+                    when (text) {
+                        about -> {
+                            navController?.navigate(WeatherScreens.AboutScreen.name)
+                        }
+
+                        favorites -> {
+                            navController?.navigate(WeatherScreens.FavoriteScreen.name)
+                        }
+
+                        settings -> {
+                            navController?.navigate(WeatherScreens.SettingScreen.name)
+                        }
+                    }
                 })
             }
 

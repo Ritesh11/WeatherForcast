@@ -15,7 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.rks.weatherforcast.R
 import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
 
 @Composable
@@ -26,9 +28,9 @@ fun WeatherDropDownItems(text: String) {
     ) {
         Icon(
             imageVector = when (text) {
-                "About" -> Icons.Default.Info
-                "Favorites" -> Icons.Default.FavoriteBorder
-                "Settings" -> Icons.Default.Settings
+                stringResource(R.string.option_about) -> Icons.Default.Info
+                stringResource(R.string.option_favorites) -> Icons.Default.FavoriteBorder
+                stringResource(R.string.option_settings) -> Icons.Default.Settings
                 else -> Icons.Default.AccountBox
             },
             contentDescription = text,

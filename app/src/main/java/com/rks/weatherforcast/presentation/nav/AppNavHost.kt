@@ -8,10 +8,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.rks.weatherforcast.presentation.screens.about.AboutScreen
+import com.rks.weatherforcast.presentation.screens.favorite.FavoriteScreen
 import com.rks.weatherforcast.presentation.screens.splash.SplashScreen
 import com.rks.weatherforcast.presentation.screens.home.HomeScreen
 import com.rks.weatherforcast.presentation.screens.home.HomeViewModel
 import com.rks.weatherforcast.presentation.screens.search.SearchScreen
+import com.rks.weatherforcast.presentation.screens.setting.SettingScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
@@ -39,14 +42,28 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 navArgument(name = "city") {
                     type = NavType.StringType
                 })
-        ) { backStackEntry  ->
-            backStackEntry .arguments?.getString("city").let { city ->
+        ) { backStackEntry ->
+            backStackEntry.arguments?.getString("city").let { city ->
 
                 val homeViewModel = hiltViewModel<HomeViewModel>()
-                HomeScreen(navController = _NavController,
+                HomeScreen(
+                    navController = _NavController,
                     homeViewModel = homeViewModel,
-                    city = city)
+                    city = city
+                )
             }
+        }
+
+        composable(WeatherScreens.AboutScreen.name) {
+            AboutScreen(navController = _NavController)
+        }
+
+        composable(WeatherScreens.FavoriteScreen.name) {
+            FavoriteScreen(navController = _NavController)
+        }
+
+        composable(WeatherScreens.SettingScreen.name) {
+            SettingScreen(navController = _NavController)
         }
     }
 }
