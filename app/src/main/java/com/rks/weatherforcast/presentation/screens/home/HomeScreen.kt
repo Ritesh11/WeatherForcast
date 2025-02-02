@@ -44,7 +44,6 @@ import com.rks.weatherforcast.data.wrapper.DataOrException
 import com.rks.weatherforcast.presentation.formatDate
 import com.rks.weatherforcast.presentation.formatDecimals
 import com.rks.weatherforcast.presentation.formatTime
-import com.rks.weatherforcast.presentation.nav.AppNavHost
 import com.rks.weatherforcast.presentation.nav.AppNavigation
 import com.rks.weatherforcast.presentation.widgets.WeatherAppBar
 import com.rks.weatherforcast.presentation.widgets.WeatherImage
@@ -62,8 +61,6 @@ fun HomeScreen(
     ) {
         value = homeViewModel.getWeatherData(city = "Bengaluru")
     }.value
-
-
 
     Column(
         modifier = modifier
@@ -232,9 +229,9 @@ fun TopCircle(modifier: Modifier = Modifier, weather: Weather) {
 @Composable
 fun HumidityRow(
     modifier: Modifier = Modifier,
-    humidity: String = "90%",
-    psi: String = "1024 psi",
-    windSpeed: String = "8 mph"
+    humidity: String,
+    psi: String,
+    windSpeed: String
 ) {
 
     Row(
@@ -253,8 +250,8 @@ fun HumidityRow(
 @Composable
 fun SunRiseRow(
     modifier: Modifier = Modifier,
-    sunRise: String = "11:34 AM",
-    sunSet: String = "08:21 PM"
+    sunRise: String,
+    sunSet: String
 ) {
 
     Row(
@@ -269,7 +266,11 @@ fun SunRiseRow(
 }
 
 @Composable
-fun WeatherDetailItem(modifier: Modifier, humidity: String, imageResource: Int) {
+fun WeatherDetailItem(
+    modifier: Modifier,
+    humidity: String,
+    imageResource: Int
+) {
     Row(
         modifier = modifier
     ) {
