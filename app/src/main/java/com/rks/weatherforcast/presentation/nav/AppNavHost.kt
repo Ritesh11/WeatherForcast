@@ -3,10 +3,11 @@ package com.rks.weatherforcast.presentation.nav
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.rks.weatherforcast.presentation.screens.splash.SplashScreen
 import com.rks.weatherforcast.presentation.screens.home.HomeScreen
 import com.rks.weatherforcast.presentation.screens.home.HomeViewModel
@@ -19,20 +20,33 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = _NavController,
-        startDestination = AppNavigation.SplashScreen.name
+        startDestination = WeatherScreens.SplashScreen.name
     ) {
 
-        composable(AppNavigation.SplashScreen.name) {
+        val home = WeatherScreens.HomeScreen.name
+
+        composable(WeatherScreens.SplashScreen.name) {
             SplashScreen(navController = _NavController)
         }
 
-        composable(AppNavigation.SearchScreen.name) {
+        composable(WeatherScreens.SearchScreen.name) {
             SearchScreen(navController = _NavController)
         }
 
-        composable(AppNavigation.HomeScreen.name) {
-            val homeViewModel = hiltViewModel<HomeViewModel>()
-            HomeScreen(navController = _NavController, homeViewModel = homeViewModel)
+        composable(
+            "$home/{city}",
+            arguments = listOf(
+                navArgument(name = "city") {
+                    type = NavType.StringType
+                })
+        ) { backStackEntry  ->
+            backStackEntry .arguments?.getString("city").let { city ->
+
+                val homeViewModel = hiltViewModel<HomeViewModel>()
+                HomeScreen(navController = _NavController,
+                    homeViewModel = homeViewModel,
+                    city = city)
+            }
         }
     }
 }

@@ -50,17 +50,20 @@ import com.rks.weatherforcast.presentation.widgets.WeatherImage
 import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
 
 @Composable
-fun HomeScreen(
+fun HomeScreen(modifier: Modifier = Modifier,
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
+    city: String?
 ) {
 
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(loading = true)
     ) {
-        value = homeViewModel.getWeatherData(city = "Bengaluru")
+
+        value = homeViewModel.getWeatherData(city = city!!)
+
     }.value
+
 
     Column(
         modifier = modifier
@@ -94,7 +97,7 @@ fun ShowWeatherData(
                 title = weather.city.name + ", ${weather.city.country}",
                 navController = navController,
                 onAddActionClicked = {
-                    navController.navigate(AppNavigation.SearchScreen.name)
+                    navController.navigate(WeatherScreens.SearchScreen.name)
                 }
             ) {
                 Log.i("Weather App", "Button Clicked")
