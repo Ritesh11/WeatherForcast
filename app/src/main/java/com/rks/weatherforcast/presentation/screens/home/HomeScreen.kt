@@ -32,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,7 +43,7 @@ import com.rks.weatherforcast.data.wrapper.DataOrException
 import com.rks.weatherforcast.presentation.formatDate
 import com.rks.weatherforcast.presentation.formatDecimals
 import com.rks.weatherforcast.presentation.formatTime
-import com.rks.weatherforcast.presentation.nav.AppNavigation
+import com.rks.weatherforcast.presentation.nav.WeatherScreens
 import com.rks.weatherforcast.presentation.widgets.WeatherAppBar
 import com.rks.weatherforcast.presentation.widgets.WeatherImage
 import com.rks.weatherforcast.ui.theme.WeatherAppLightColors
@@ -59,9 +58,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(loading = true)
     ) {
-
         value = homeViewModel.getWeatherData(city = city!!)
-
     }.value
 
 
